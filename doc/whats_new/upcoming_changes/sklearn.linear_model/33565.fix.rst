@@ -1,0 +1,4 @@
+- The `tol` parameter in :class:`linear_model.LinearRegression` is now set as
+  the `cond` parameter of the :func:`scipy.linalg.lstsq` solver when fitting on
+  dense data.
+  By :user:`Antoine Baker <antoinebaker>`
