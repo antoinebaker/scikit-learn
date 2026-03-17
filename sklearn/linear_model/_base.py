@@ -503,10 +503,10 @@ class LinearRegression(MultiOutputMixin, RegressorMixin, LinearModel):
 
     tol : float, default=1e-6
         The precision of the solution (`coef_`) is determined by `tol` which
-        specifies a different convergence criterion for the `lsqr` solver.
-        `tol` is set as `atol` and `btol` of :func:`scipy.sparse.linalg.lsqr` when
-        fitting on sparse training data. This parameter has no effect when fitting
-        on dense data.
+        specifies the convergence criterion of the underlying solver. `tol` is
+        set as `atol` and `btol` of :func:`scipy.sparse.linalg.lsqr` when
+        fitting on sparse training data. `tol` is set as `cond` of
+        :func:`scipy.linalg.lstsq` when fitting on dense training data.
 
         .. versionadded:: 1.7
 
@@ -714,9 +714,9 @@ class LinearRegression(MultiOutputMixin, RegressorMixin, LinearModel):
                 )
                 self.coef_ = np.vstack([out[0] for out in outs])
         else:
-            # cut-off ratio for small singular values
-            cond = max(X.shape) * np.finfo(X.dtype).eps
-            self.coef_, _, self.rank_, self.singular_ = linalg.lstsq(X, y, cond=cond)
+            self.coef_, _, self.rank_, self.singular_ = linalg.lstsq(
+                X, y, cond=self.tol
+            )
             self.coef_ = self.coef_.T
 
         if y.ndim == 1:
