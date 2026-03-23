@@ -510,6 +510,7 @@ class LinearRegression(MultiOutputMixin, RegressorMixin, LinearModel):
 
         .. versionadded:: 1.7
         .. versionchanged:: 1.9
+            Now supported on dense data, interpreted as the `cond` parameter.
 
     n_jobs : int, default=None
         The number of jobs to use for the computation. This will only provide
