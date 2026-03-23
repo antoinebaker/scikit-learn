@@ -509,6 +509,7 @@ class LinearRegression(MultiOutputMixin, RegressorMixin, LinearModel):
         :func:`scipy.linalg.lstsq` when fitting on dense training data.
 
         .. versionadded:: 1.7
+        .. versionchanged:: 1.9
 
     n_jobs : int, default=None
         The number of jobs to use for the computation. This will only provide
