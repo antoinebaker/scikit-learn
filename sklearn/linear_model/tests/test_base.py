@@ -79,7 +79,7 @@ def test_linear_regression_vs_lstsq(dtype):
 
     rmse_scipy = np.linalg.norm(y - X @ coef_scipy)
     rmse_sklearn = np.linalg.norm(y - X @ coef_sklearn)
-    assert rmse_sklearn <= rmse_scipy + 1e-6
+    assert rmse_sklearn == pytest.approx(rmse_scipy, rel=1e-6)
 
 
 @pytest.mark.parametrize("sparse_container", [None] + CSR_CONTAINERS)
