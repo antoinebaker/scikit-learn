@@ -157,18 +157,18 @@ cdef class HistogramBuilder:
             # cache hit.
             if sample_indices.shape[0] != gradients.shape[0]:
                 if hessians_are_constant:
-                    for i in prange(n_samples, schedule='static',
+                    for i in prange(n_samples, schedule='dynamic',
                                     num_threads=n_threads):
                         ordered_gradients[i] = gradients[sample_indices[i]]
                 else:
-                    for i in prange(n_samples, schedule='static',
+                    for i in prange(n_samples, schedule='dynamic',
                                     num_threads=n_threads):
                         ordered_gradients[i] = gradients[sample_indices[i]]
                         ordered_hessians[i] = hessians[sample_indices[i]]
 
             # Compute histogram of each feature
             for f_idx in prange(
-                n_allowed_features, schedule='static', num_threads=n_threads
+                n_allowed_features, schedule='dynamic', num_threads=n_threads
             ):
                 if has_interaction_cst:
                     feature_idx = allowed_features[f_idx]
@@ -267,7 +267,7 @@ cdef class HistogramBuilder:
             n_allowed_features = allowed_features.shape[0]
 
         # Compute histogram of each feature
-        for f_idx in prange(n_allowed_features, schedule='static', nogil=True,
+        for f_idx in prange(n_allowed_features, schedule='dynamic', nogil=True,
                             num_threads=n_threads):
             if has_interaction_cst:
                 feature_idx = allowed_features[f_idx]

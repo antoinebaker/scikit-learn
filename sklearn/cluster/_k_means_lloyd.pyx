@@ -121,7 +121,7 @@ def lloyd_iter_chunked_dense(
         weight_in_clusters_chunk = <floating*> calloc(n_clusters, sizeof(floating))
         pairwise_distances_chunk = <floating*> malloc(n_samples_chunk * n_clusters * sizeof(floating))
 
-        for chunk_idx in prange(n_chunks, schedule='static'):
+        for chunk_idx in prange(n_chunks, schedule='dynamic'):
             start = chunk_idx * n_samples_chunk
             if chunk_idx == n_chunks - 1 and n_samples_rem > 0:
                 end = start + n_samples_rem
@@ -322,7 +322,7 @@ def lloyd_iter_chunked_sparse(
         centers_new_chunk = <floating*> calloc(n_clusters * n_features, sizeof(floating))
         weight_in_clusters_chunk = <floating*> calloc(n_clusters, sizeof(floating))
 
-        for chunk_idx in prange(n_chunks, schedule='static'):
+        for chunk_idx in prange(n_chunks, schedule='dynamic'):
             start = chunk_idx * n_samples_chunk
             if chunk_idx == n_chunks - 1 and n_samples_rem > 0:
                 end = start + n_samples_rem

@@ -79,7 +79,7 @@ def init_bounds_dense(
         int best_cluster, i, j
 
     for i in prange(
-        n_samples, num_threads=n_threads, schedule='static', nogil=True
+        n_samples, num_threads=n_threads, schedule='dynamic', nogil=True
     ):
         best_cluster = 0
         min_dist = _euclidean_dense_dense(&X[i, 0], &centers[0, 0],
@@ -160,7 +160,7 @@ def init_bounds_sparse(
         floating[::1] centers_squared_norms = row_norms(centers, squared=True)
 
     for i in prange(
-        n_samples, num_threads=n_threads, schedule='static', nogil=True
+        n_samples, num_threads=n_threads, schedule='dynamic', nogil=True
     ):
         best_cluster = 0
         min_dist = _euclidean_sparse_dense(
@@ -297,7 +297,7 @@ def elkan_iter_chunked_dense(
         centers_new_chunk = <floating*> calloc(n_clusters * n_features, sizeof(floating))
         weight_in_clusters_chunk = <floating*> calloc(n_clusters, sizeof(floating))
 
-        for chunk_idx in prange(n_chunks, schedule='static'):
+        for chunk_idx in prange(n_chunks, schedule='dynamic'):
             start = chunk_idx * n_samples_chunk
             if chunk_idx == n_chunks - 1 and n_samples_rem > 0:
                 end = start + n_samples_rem
@@ -546,7 +546,7 @@ def elkan_iter_chunked_sparse(
         centers_new_chunk = <floating*> calloc(n_clusters * n_features, sizeof(floating))
         weight_in_clusters_chunk = <floating*> calloc(n_clusters, sizeof(floating))
 
-        for chunk_idx in prange(n_chunks, schedule='static'):
+        for chunk_idx in prange(n_chunks, schedule='dynamic'):
             start = chunk_idx * n_samples_chunk
             if chunk_idx == n_chunks - 1 and n_samples_rem > 0:
                 end = start + n_samples_rem

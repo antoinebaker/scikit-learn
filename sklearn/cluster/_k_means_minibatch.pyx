@@ -48,7 +48,7 @@ def _minibatch_update_dense(
     with nogil, parallel(num_threads=n_threads):
         indices = <int*> malloc(n_samples * sizeof(int))
 
-        for cluster_idx in prange(n_clusters, schedule="static"):
+        for cluster_idx in prange(n_clusters, schedule='dynamic'):
             update_center_dense(cluster_idx, X, sample_weight,
                                 centers_old, centers_new, weight_sums, labels,
                                 indices)
@@ -156,7 +156,7 @@ def _minibatch_update_sparse(
     with nogil, parallel(num_threads=n_threads):
         indices = <int*> malloc(n_samples * sizeof(int))
 
-        for cluster_idx in prange(n_clusters, schedule="static"):
+        for cluster_idx in prange(n_clusters, schedule='dynamic'):
             update_center_sparse(cluster_idx, X_data, X_indices, X_indptr,
                                  sample_weight, centers_old, centers_new,
                                  weight_sums, labels, indices)

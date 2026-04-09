@@ -114,7 +114,7 @@ cpdef floating _inertia_dense(
         floating inertia = 0.0
 
     for i in prange(n_samples, nogil=True, num_threads=n_threads,
-                    schedule='static'):
+                    schedule='dynamic'):
         j = labels[i]
         if single_label < 0 or single_label == j:
             sq_dist = _euclidean_dense_dense(&X[i, 0], &centers[j, 0],
@@ -152,7 +152,7 @@ cpdef floating _inertia_sparse(
         floating[::1] centers_squared_norms = row_norms(centers, squared=True)
 
     for i in prange(n_samples, nogil=True, num_threads=n_threads,
-                    schedule='static'):
+                    schedule='dynamic'):
         j = labels[i]
         if single_label < 0 or single_label == j:
             sq_dist = _euclidean_sparse_dense(
