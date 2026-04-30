@@ -1212,7 +1212,7 @@ class _TemperatureScaling(RegressorMixin, BaseEstimator):
         return tags
 
 
-# TODO(1.11): change default strategy to 'quantile', see PR #TDB.
+# TODO(1.11): change default strategy to 'quantile', see PR #33908.
 @validate_params(
     {
         "y_true": ["array-like"],
@@ -1320,7 +1320,7 @@ def calibration_curve(
         )
     y_true = y_true == pos_label
 
-    # TODO(1.11): remove, see PR #TDB.
+    # TODO(1.11): remove, see PR #33908.
     if strategy == "warn":
         warnings.warn(
             "The default value of `strategy` will change "
@@ -1492,7 +1492,7 @@ class CalibrationDisplay(_BinaryClassifierCurveDisplayMixin):
 
         return self
 
-    # TODO(1.11): change default strategy to 'quantile', see PR #TDB.
+    # TODO(1.11): change default strategy to 'quantile', see PR #33908.
     @classmethod
     def from_estimator(
         cls,
@@ -1608,7 +1608,7 @@ class CalibrationDisplay(_BinaryClassifierCurveDisplayMixin):
             name=name,
         )
 
-        # TODO(1.11): remove, see PR #TDB.
+        # TODO(1.11): remove, see PR #33908.
         if strategy == "warn":
             warnings.warn(
                 "The default value of `strategy` will change "
@@ -1629,7 +1629,7 @@ class CalibrationDisplay(_BinaryClassifierCurveDisplayMixin):
             **kwargs,
         )
 
-    # TODO(1.11): change default strategy to 'quantile', see PR #TDB.
+    # TODO(1.11): change default strategy to 'quantile', see PR #33908.
     @classmethod
     def from_predictions(
         cls,
@@ -1734,7 +1734,7 @@ class CalibrationDisplay(_BinaryClassifierCurveDisplayMixin):
             y_true, y_prob, sample_weight=None, pos_label=pos_label, name=name
         )
 
-        # TODO(1.11): remove, see PR #TDB.
+        # TODO(1.11): remove, see PR #33908.
         if strategy == "warn":
             warnings.warn(
                 "The default value of `strategy` will change "
